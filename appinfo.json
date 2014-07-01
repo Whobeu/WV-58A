@@ -1,0 +1,80 @@
+{
+    "appKeys": {
+        "datefmt": 3,
+        "inv": 1,
+        "vibr": 2
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "companyName": "Aardvark",
+    "longName": "Casio WV-58A",
+    "resources": {
+        "media": [
+            {
+                "file": "images/MenuImage.png",
+                "menuIcon": true,
+                "name": "RESOURCE_ID_IMAGE_MENUICON",
+                "type": "png"
+            },
+            {
+                "characterRegex": "[A-Z]",
+                "file": "fonts/MobileMan.ttf",
+                "name": "RESOURCE_ID_FONT_MOBILEMAN_30",
+                "trackingAdjust": -3,
+                "type": "font"
+            },
+            {
+                "file": "images/Background.png",
+                "name": "RESOURCE_ID_IMAGE_BACKGROUND",
+                "type": "png"
+            },
+            {
+                "file": "images/Radio.png",
+                "name": "RESOURCE_ID_IMAGE_RADIO",
+                "type": "png"
+            },
+            {
+                "characterRegex": "[0-9: ]",
+                "file": "fonts/DIGITAL_BOLD.TTF",
+                "name": "RESOURCE_ID_FONT_DIGITAL_55",
+                "trackingAdjust": -3,
+                "type": "font"
+            },
+            {
+                "characterRegex": "[-/0-9. ]",
+                "file": "fonts/DIGITAL_BOLD.TTF",
+                "name": "RESOURCE_ID_FONT_DIGITAL_25",
+                "type": "font"
+            },
+            {
+                "characterRegex": "[A-Z]",
+                "file": "fonts/DIGITAL_BOLD.TTF",
+                "name": "RESOURCE_ID_FONT_DIGITAL_35",
+                "type": "font"
+            },
+            {
+                "file": "images/Battery.png",
+                "name": "RESOURCE_ID_IMAGE_BATTERIES",
+                "type": "png"
+            },
+            {
+                "file": "images/A.png",
+                "name": "AM_IMAGE",
+                "type": "png"
+            },
+            {
+                "file": "images/P.png",
+                "name": "PM_IMAGE",
+                "type": "png"
+            }
+        ]
+    },
+    "shortName": "Casio WV-58A",
+    "uuid": "0bd7e4a0-fe4a-11e3-9191-0800200c9a66",
+    "versionCode": 5,
+    "versionLabel": "1.1",
+    "watchapp": {
+        "watchface": true
+    }
+}
