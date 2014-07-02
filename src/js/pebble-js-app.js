@@ -13,16 +13,17 @@ Pebble.addEventListener("ready", function() {
 });
 
 Pebble.addEventListener("showConfiguration", function() {
-    var options = JSON.parse(window.localStorage.getItem('cas_wv_28a_opt'));
+    var options = JSON.parse(window.localStorage.getItem('cas_wv_58a_opt'));
     console.log("read options: " + JSON.stringify(options));
     console.log("showing configuration");
-    if (options == null) {
-        var uri = 'http://www.n2jtx.com/config_common.html?title=Casio%20WV-58A';
+    var uri;
+    if (options === null) {
+        uri = 'http://www.n2jtx.com/config_common.html?title=Casio%20WV-58A';
     } else {
-        var uri = 'http://www.n2jtx.com/config_common.html?title=Casio%20WV-58A' + 
-			'&inv=' + encodeURIComponent(options['inv']) + 
-			'&vibr=' + encodeURIComponent(options['vibr']) + 
-			'&datefmt=' + encodeURIComponent(options['datefmt']);
+        uri = 'http://www.n2jtx.com/config_common.html?title=Casio%20WV-58A' + 
+			'&inv=' + encodeURIComponent(options.inv) + 
+			'&vibr=' + encodeURIComponent(options.vibr) + 
+			'&datefmt=' + encodeURIComponent(options.datefmt);
     }
 	console.log("Uri: "+uri);
     Pebble.openURL(uri);
@@ -30,10 +31,10 @@ Pebble.addEventListener("showConfiguration", function() {
 
 Pebble.addEventListener("webviewclosed", function(e) {
     console.log("configuration closed");
-    if (e.response != '') {
+    if (e.response !== '') {
         var options = JSON.parse(decodeURIComponent(e.response));
         console.log("storing options: " + JSON.stringify(options));
-        window.localStorage.setItem('cas_wv_28a_opt', JSON.stringify(options));
+        window.localStorage.setItem('cas_wv_58a_opt', JSON.stringify(options));
         Pebble.sendAppMessage(options, appMessageAck, appMessageNack);
     } else {
         console.log("no options received");
