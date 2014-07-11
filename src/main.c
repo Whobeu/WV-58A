@@ -2,6 +2,8 @@
 
 enum ConfigKeys { CONFIG_KEY_INV = 1, CONFIG_KEY_VIBR = 2, CONFIG_KEY_DATEFMT = 3 };
 
+enum DateFormats { FORMAT_USA1 = 0, FORMAT_USA2 = 1, FORMAT_ENG = 2, FORMAT_GER = 3, FORMAT_FRA = 4 };
+
 typedef struct
 {
     bool        inv;
@@ -88,15 +90,15 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
         (
             ddmmBuffer,
             sizeof(ddmmBuffer),
-            CfgData.datefmt == 1 ? "%d-%m" :
-            CfgData.datefmt == 2 ? "%d/%m" :
-            CfgData.datefmt == 3 ? "%m/%e" :
-            CfgData.datefmt == 4 ? "%m-%e" : "%d.%m",
+            CfgData.datefmt == FORMAT_USA2 ? "%m/%e" :
+            CfgData.datefmt == FORMAT_ENG ? "%d/%m" :
+            CfgData.datefmt == FORMAT_GER ? "%d.%m" :
+            CfgData.datefmt == FORMAT_FRA ? "%d-%m" : "%m-%e",
             tick_time
         );
 
-        // Kludge to blank pad the month if less than 10
-        if ((CfgData.datefmt == 3 || CfgData.datefmt == 4) && *ddmmBuffer == '0')
+        // Kludge to blank pad the month if less than 10 for USA formats.
+        if ((CfgData.datefmt == FORMAT_USA1 || CfgData.datefmt == FORMAT_USA2) && *ddmmBuffer == '0')
         {
             *ddmmBuffer = ' ';
         }
@@ -112,7 +114,7 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
         text_layer_set_text(yyyy_layer, yyyyBuffer);
 
         //Check DST at 4h at morning
-        //BUG: tm_isdst is NOT populated by Pebble
+        //BUG: tm_isdst is NOT populated by Pebble OS
         if ((tick_time->tm_hour == 4 && tick_time->tm_min == 0) || units_changed == MINUTE_UNIT)
             layer_set_hidden(bitmap_layer_get_layer(dst_layer), tick_time->tm_isdst != 1);
 
@@ -210,10 +212,11 @@ void in_received_handler(DictionaryIterator *received, void *ctx)
             persist_write_int
             (
                 CONFIG_KEY_DATEFMT,
-                strcmp(akt_tuple->value->cstring, "fra") == 0 ? 1 : 
-                strcmp(akt_tuple->value->cstring, "eng") == 0 ? 2 : 
-                strcmp(akt_tuple->value->cstring, "usa1") == 0 ? 3 :
-                strcmp(akt_tuple->value->cstring, "usa2") == 0 ? 4 : 0
+                strcmp(akt_tuple->value->cstring, "usa1") == 0 ? FORMAT_USA1 :
+                strcmp(akt_tuple->value->cstring, "usa2") == 0 ? FORMAT_USA2 :
+                strcmp(akt_tuple->value->cstring, "eng") == 0 ? FORMAT_ENG : 
+                strcmp(akt_tuple->value->cstring, "ger") == 0 ? FORMAT_GER : 
+                strcmp(akt_tuple->value->cstring, "fra") == 0 ? FORMAT_FRA : FORMAT_USA1
             );
         }
 

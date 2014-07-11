@@ -16,11 +16,12 @@ Pebble.addEventListener("showConfiguration", function() {
     var options = JSON.parse(window.localStorage.getItem('cas_wv_58a_opt'));
     console.log("read options: " + JSON.stringify(options));
     console.log("showing configuration");
+    
     var uri;
     if (options === null) {
-        uri = 'http://www.n2jtx.com/config_common.html?title=Casio%20WV-58A';
+        uri = 'http://www.n2jtx.com/wv58a_settings.html?title=Casio%20WV-58A';
     } else {
-        uri = 'http://www.n2jtx.com/config_common.html?title=Casio%20WV-58A' + 
+        uri = 'http://www.n2jtx.com/wv58a_settings.html?title=Casio%20WV-58A' + 
 			'&inv=' + encodeURIComponent(options.inv) + 
 			'&vibr=' + encodeURIComponent(options.vibr) + 
 			'&datefmt=' + encodeURIComponent(options.datefmt);
